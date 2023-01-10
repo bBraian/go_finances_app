@@ -57,3 +57,9 @@ export const Icon = styled(Feather)`
     color: ${(props) => props.theme.colors.secundary};
     font-size: ${RFValue(24)}px;
 `;
+
+export const HighlightCards = styled.ScrollView.attrs({
+    horizontal: true,
+    showsVerticalScrollIndicator: false,
+    contentContainerStyle: {paddingHorizontal: 24}
+})``;

@@ -19,9 +19,9 @@ export const Container = styled(TouchableOpacity)<ButtonProps>`
     align-items: center;
     justify-content: center;
 
-    border-width: ${props => props.isActive ? 0 : 1.5}px;
-    border-style: solid;
-    border-color: #c4c4c4;
+    background-color: ${props => !props.isActive && props.theme.colors.shape };
+    /* border-style: solid;
+    border-color: #c4c4c4; */
     border-radius: 5px;
 
     padding: 16px;

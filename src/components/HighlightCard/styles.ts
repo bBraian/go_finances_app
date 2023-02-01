@@ -12,7 +12,7 @@ export const Container = styled.View<TypeProps>`
     width: ${RFValue(300)}px;
     border-radius: 5px;
     padding: 19px 23px;
-    padding-bottom: ${RFValue(42)}px;
+    padding-bottom: ${RFValue(32)}px;
 
     margin-right: 16px;
 `;
@@ -42,13 +42,14 @@ export const Icon = styled(Feather)<TypeProps>`
     `}
 `;
 
-export const Footer = styled.View``;
+export const Footer = styled.View`
+`;
 
 export const Amount = styled.Text<TypeProps>`
     font-family: ${(props) => props.theme.fonts.medium};
     font-size: ${RFValue(32)}px;
     color: ${(props) => props.type === 'total' ? props.theme.colors.shape : props.theme.colors.text_dark };
-    margin-top: 38px;
+    margin-top: 20px;
 `; 
 
 export const LastTransaction = styled.Text<TypeProps>`

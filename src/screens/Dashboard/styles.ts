@@ -13,7 +13,7 @@ export const Container = styled.View`
 export const Header = styled.View`
     width: 100%;
     background-color: ${(props) => props.theme.colors.primary};
-    height: ${RFPercentage(42)}px;
+    height: ${RFPercentage(40)}px;
     
     justify-content: center;
     align-items: flex-start;
@@ -79,7 +79,7 @@ export const Transactions = styled.View`
     flex: 1%;
     padding: 0 24px;
 
-    margin-top: ${RFPercentage(12)}px;
+    margin-top: ${RFPercentage(10)}px;
 `;
 
 export const Title = styled.Text`
@@ -98,3 +98,9 @@ export const TransactionList = styled(
       paddingBottom: getBottomSpace(),
     },
   })``;
+
+export const LoadContainer = styled.View`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+`;

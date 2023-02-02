@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/global/styles/theme';
 
+import { StatusBar, Text } from 'react-native';
+
 import { NavigationContainer } from '@react-navigation/native';
 
 import {
@@ -11,7 +13,6 @@ import {
   Poppins_700Bold
 } from '@expo-google-fonts/poppins';
 import * as SplashScreen from 'expo-splash-screen';
-import { Text } from 'react-native';
 import { AppRoutes } from './src/routes/app.routes';
 
 export function App() {
@@ -35,6 +36,7 @@ export function App() {
   return (
     <ThemeProvider theme={theme}>
       <NavigationContainer>
+        <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
         <AppRoutes />
 
       </NavigationContainer>

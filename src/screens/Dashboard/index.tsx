@@ -117,7 +117,7 @@ export function Dashboard() {
             style: 'currency',
             currency: 'BRL'
           }),
-          lastTransaction: `Última saída dia ${lastTransactionEntry}`
+          lastTransaction: `Última saída dia ${lastTransactionExpensive}`
         },
         entries: {
           amount: entriesSum.toLocaleString('pt-BR', {
@@ -143,8 +143,6 @@ export function Dashboard() {
 
   useEffect(() => {
     loadTransactions();
-
-    
   }, [])
 
   useFocusEffect(useCallback(() => {

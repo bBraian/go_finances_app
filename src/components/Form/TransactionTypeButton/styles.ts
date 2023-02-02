@@ -20,8 +20,6 @@ export const Container = styled(TouchableOpacity)<ButtonProps>`
     justify-content: center;
 
     background-color: ${props => !props.isActive && props.theme.colors.shape };
-    /* border-style: solid;
-    border-color: #c4c4c4; */
     border-radius: 5px;
 
     padding: 16px;

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, Alert } from 'react-native';
 import { HighlightCard } from '../../components/HighlightCard';
 import { TransactionCard, TransactionCardProps } from '../../components/TransactionCard';
 import "intl";
@@ -26,7 +26,8 @@ import {
 } from "./styles";
 
 interface HighlightProps {
-  amount: string
+  amount: string;
+  lastTransaction: string;
 }
 import { useTheme } from 'styled-components';
 
@@ -43,8 +44,21 @@ export interface DataListProps extends TransactionCardProps {
 export function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<DataListProps[]>();
-  const [highlightData, setHighlightData] = useState<HighlightData>({} as HighlightData);
+  const [highlightData, setHighlightData] = useState<HighlightData>({
+    expensive: {amount: 'R$ 0,00', lastTransaction: ' '},
+    entries: {amount: 'R$ 0,00', lastTransaction: ' '},
+    total: {amount: 'R$ 0,00', lastTransaction: ' '},
+  } as HighlightData);
   const theme = useTheme();
+
+  function getLastTransactionDate(collection: DataListProps[], type: 'up' | 'down' ) {
+    const lastTransaction = new Date( Math.max.apply(Math, collection
+      .filter(transaction => transaction.type === type)
+      .map(transaction => new Date(transaction.date).getTime())
+    ))
+
+    return `${lastTransaction.getDate()} de ${lastTransaction.toLocaleString('pt-BR', { month: 'long' })}`
+  }
 
   async function loadTransactions() {
     const dataKey = '@gofinances:transactions';
@@ -55,12 +69,10 @@ export function Dashboard() {
     try {
       const response = await AsyncStorage.getItem(dataKey);
       const transactions = response ? JSON.parse(response) : [];
-
-      console.log(transactions)
   
       const transactionsFormatted: DataListProps[] = transactions
         .map((item: DataListProps) => {
-
+  
           if(item.type === 'up') {
             entriesSum += Number(item.amount);
           } else {
@@ -88,7 +100,15 @@ export function Dashboard() {
             date
           }
       });
+      
+      setData(transactionsFormatted);
 
+      const lastTransactionEntry = getLastTransactionDate(transactions, 'up');
+      const lastTransactionExpensive = getLastTransactionDate(transactions, 'down');
+      const totalInterval = `1 a ${lastTransactionEntry}`;
+
+      setIsLoading(false);
+      
       const total = entriesSum - expensiveSum;
       
       setHighlightData({
@@ -96,25 +116,27 @@ export function Dashboard() {
           amount: expensiveSum.toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL'
-          })
+          }),
+          lastTransaction: `Última saída dia ${lastTransactionEntry}`
         },
         entries: {
           amount: entriesSum.toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL'
-          })
+          }),
+          lastTransaction: `Última entrada dia ${lastTransactionEntry}`
         },
         total: {
           amount: total.toLocaleString('pt-BR', {
             style: 'currency',
             currency: 'BRL'
-          })
+          }),
+          lastTransaction: totalInterval
         }
       })
-      setData(transactionsFormatted);
-      setIsLoading(false);
     } catch(error) {
-      console.log(error)
+      console.log(error);
+      Alert.alert('Erro ao buscar dados');
     }
 
   }
@@ -149,9 +171,9 @@ export function Dashboard() {
           </Header>
 
           <HighlightCards>
-            <HighlightCard type='up' title='Entradas' amount={highlightData.entries.amount} lastTransaction='Última entrada dia 13 de abril' /> 
-            <HighlightCard type='down' title='Saídas' amount={highlightData.expensive.amount} lastTransaction='Última saída dia 03 de abril' /> 
-            <HighlightCard type='total' title='Total' amount={highlightData.total.amount} lastTransaction='01 à 16 de abril' /> 
+            <HighlightCard type='up' title='Entradas' amount={highlightData.entries.amount} lastTransaction={highlightData.entries.lastTransaction} /> 
+            <HighlightCard type='down' title='Saídas' amount={highlightData.expensive.amount} lastTransaction={highlightData.expensive.lastTransaction} /> 
+            <HighlightCard type='total' title='Total' amount={highlightData.total.amount} lastTransaction={highlightData.total.lastTransaction} /> 
           </HighlightCards>
 
           <Transactions>

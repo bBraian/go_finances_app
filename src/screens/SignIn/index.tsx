@@ -20,6 +20,10 @@ import { Alert } from 'react-native';
 export function SignIn() {
     const { signInWithGoogle } = useAuth();
 
+    function handleSignInWithApple() {
+        Alert.alert('Em desenvolvimento')
+    }
+
     async function handleSignInWithGoogle() {
         try {
             await signInWithGoogle();
@@ -53,7 +57,7 @@ export function SignIn() {
             <Footer>
                 <FooterWrapper>
                     <SignInButton svg={GoogleSvg} title="Entrar com Google" onPress={handleSignInWithGoogle} />
-                    <SignInButton svg={AppleSvg} title="Entrar com Apple" />
+                    <SignInButton svg={AppleSvg} title="Entrar com Apple"  onPress={handleSignInWithApple} />
                 </FooterWrapper>
             </Footer>
 

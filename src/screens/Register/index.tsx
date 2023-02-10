@@ -25,6 +25,7 @@ import {
     TransactionsTypes
 } from './styles';
 import { InputForm } from '../../components/InputForm';
+import { useAuth } from '../../hooks/auth';
 
 interface FormData {
     name: string;
@@ -42,7 +43,8 @@ type NavigationProps = {
 
 
 export function Register() {
-    const dataKey = '@gofinances:transactions';
+    const { user } = useAuth();
+    
     const [category, setCategory] = useState({
         key: 'category',
         name: 'Categoria',
@@ -95,6 +97,7 @@ export function Register() {
         }
 
         try {
+            const dataKey = `@gofinances:transactions_user:${user.id}`;
             const storageData = await AsyncStorage.getItem(dataKey);
             const currentData = storageData ? JSON.parse(storageData) : [];
 

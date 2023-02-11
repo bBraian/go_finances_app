@@ -40,6 +40,8 @@ function AuthProvider({ children }: AuthProviderProps) {
         try {
             const RESPONSE_TYPE = 'token';
             const SCOPE = encodeURI('profile email');
+            const CLIENT_ID = '210217136762-n2ufp0fnltlcejv77vacerg67bnrprp7.apps.googleusercontent.com';
+            const REDIRECT_URI = 'https://auth.expo.io/@bbraaian/gofinances';
 
             const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
 

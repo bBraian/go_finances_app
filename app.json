@@ -1,11 +1,18 @@
 {
   "expo": {
     "name": "gofinances",
+    "icon": "./assets/images/icon.png",
+    "version": "1.0.0",
     "slug": "gofinances",
     "scheme": "gofinances",
-    "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "android": {
+      "package": "com.bbraiandev.gofinances",
+      "versionCode": 1
+    },
+    "extra": {
+      "eas": {
+        "projectId": "9528de5e-585c-4dbe-b9c2-26c54d81ef82"
+      }
+    }
   }
 }

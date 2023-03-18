@@ -1,4 +1,4 @@
-import { RFPercentage, RFValue } from "react-native-responsive-fontsize";
+import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
@@ -7,7 +7,7 @@ export const Container = styled.View`
 
 export const Header = styled.View`
     width: 100%;
-    height: 75%;
+    height: 78%;
 
     background-color: ${props => props.theme.colors.primary};
     justify-content: flex-end;
@@ -37,14 +37,15 @@ export const SignInTitle = styled.Text`
 
 export const Footer = styled.View`
     width: 100%;
-    height: 25%;
+    height: 22%;
     padding: 0 32px;
     background-color: ${props => props.theme.colors.secundary};
+    align-items: center;
 `;
 
 export const RegisterButton = styled.TouchableOpacity`
-    height: ${RFValue(56)}px;
-    width: 100%;
+    height: ${RFValue(62)}px;
+    width: ${RFValue(62)}px;
     background-color: ${props => props.theme.colors.shape};
     border-radius: 5px;
 
@@ -53,14 +54,7 @@ export const RegisterButton = styled.TouchableOpacity`
     margin-bottom: 16px;
     position: absolute;
     bottom: 32px;
-    left: 32px;
-    right: 32px;
-`;
-
-export const TextRegister = styled.Text`
-    flex: 1;
-    text-align: center;
-
-    font-family: ${props => props.theme.fonts.medium};
-    font-size: ${RFValue(14)}px;
+    border-radius: 99px;
+    align-items: center;
+    justify-content: center;
 `;

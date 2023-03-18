@@ -28,10 +28,13 @@ import {
 
 import { useTheme } from 'styled-components';
 import { useAuth } from '../../hooks/auth';
+import { avatares } from '../../data/avatares';
+import { BackHandler } from 'react-native';
 
 export function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
+  const [avatar, setAvatar] = useState();
   const [highlightData, setHighlightData] = useState({
     expensive: {amount: 'R$ 0,00', lastTransaction: ' '},
     entries: {amount: 'R$ 0,00', lastTransaction: ' '},
@@ -138,11 +141,43 @@ export function Dashboard() {
 
   useEffect(() => {
     loadTransactions();
+    setAvatar(avatares.find((a) => a.id === user.avatarId));
   }, [])
 
   useFocusEffect(useCallback(() => {
     loadTransactions();
   }, []));
+
+  function handleSignOut() {
+    Alert.alert(
+      'Deseja excluir seu usuário?',
+      'Você perderá todos os seus dados salvos!',
+      [
+        { text: 'Não', style: 'cancel' },
+        { text: 'Sim', onPress: signOut },
+      ]
+    );
+  }
+  
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        Alert.alert(
+          'Sair do aplicativo',
+          'Deseja realmente sair do aplicativo?',
+          [
+            { text: 'Não', style: 'cancel' },
+            { text: 'Sim', onPress: () => BackHandler.exitApp() },
+          ]
+        );
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () => BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, [])
+  );
 
   return (
     <Container>
@@ -152,13 +187,13 @@ export function Dashboard() {
           <Header>
             <UserWrapper>
               <UserInfo>
-                <Photo source={{ uri: user.photo }} />
+                <Photo source={avatar.image} />
                 <User>
                   <UserGreeting>Olá,</UserGreeting>
-                  <UserName>{user.name}</UserName>
+                  <UserName>{user.username}</UserName>
                 </User>
               </UserInfo>
-              <TouchableOpacity onPress={signOut}>
+              <TouchableOpacity onPress={handleSignOut}>
                 <Icon name="power" />
               </TouchableOpacity>
             </UserWrapper>

@@ -3,8 +3,28 @@
     "name": "financas",
     "slug": "financas",
     "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#5636D3"
+    },
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#874DA2"
+      },
+      "package": "com.bbraaian.savepass"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "349cb9d4-0b2f-48fd-a466-a8bf9ce9327d"
+      }
+    }
   }
 }

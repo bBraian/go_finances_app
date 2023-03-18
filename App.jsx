@@ -15,6 +15,8 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 
 import { AuthProvider, useAuth } from './src/hooks/auth';
+import { CreateAccount } from './src/screens/CreateAccount';
+import { SignIn } from './src/screens/SignIn';
 
 export function App() {
   SplashScreen.preventAutoHideAsync();
@@ -41,6 +43,8 @@ export function App() {
         <StatusBar barStyle="light-content" translucent backgroundColor="transparent" />
           <AuthProvider>
             <Routes />
+            {/* <CreateAccount /> */}
+            {/* <SignIn /> */}
           </AuthProvider>
 
     </ThemeProvider>

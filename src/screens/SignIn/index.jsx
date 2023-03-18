@@ -7,13 +7,13 @@ import {
     SignInTitle,
     Footer,
     RegisterButton,
-    TextRegister,
 } from './styles';
+import { AntDesign } from '@expo/vector-icons';
 
 import LogoSvg from '../../../assets/logo.svg';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-export function SignIn() {
+export function SignIn({navigation}) {
     return (
         <Container>
             <Header>
@@ -37,8 +37,8 @@ export function SignIn() {
             </Header>
 
             <Footer>
-                <RegisterButton>
-                    <TextRegister>Criar conta</TextRegister>
+                <RegisterButton onPress={() => navigation.navigate('CreateAccount')}>
+                    <AntDesign name="arrowright" size={38} color="#aaaaaa" />
                 </RegisterButton>
             </Footer>
 

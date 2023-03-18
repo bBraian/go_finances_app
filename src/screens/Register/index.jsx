@@ -69,6 +69,8 @@ export function Register() {
     }
 
     async function handleRegister(form) {
+        const userStorage = await AsyncStorage.getItem('@gofinances:user');
+        console.log("antes",userStorage);
         if(!transactionType) 
             return Alert.alert('Selecione o tipo da transação!');
         
@@ -91,7 +93,7 @@ export function Register() {
             const storageData = await AsyncStorage.getItem(dataKey);
             const currentData = storageData ? JSON.parse(storageData) : [];
 
-            const dataFormatted = [ ...currentData, data ];
+            const dataFormatted = [ data, ...currentData ];
 
             await AsyncStorage.setItem(dataKey, JSON.stringify(dataFormatted))
 
@@ -103,6 +105,9 @@ export function Register() {
                 icon: ''
             })
             navigation.navigate('Listagem');
+
+            const userStorage = await AsyncStorage.getItem('@gofinances:user');
+            console.log("depois",userStorage);
            
 
         } catch (error) {
